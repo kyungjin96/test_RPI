@@ -1,5 +1,6 @@
 from flask import Flask
-import numpy as np
+
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -7,12 +8,13 @@ def helloworld():
     str = 'hello world! kj'
     return str
 
+
+
 # app.run(host="0.0.0.0",port='8000')
 
 import cv2
 
-if __name__ == '__main__' : 
-
+def cam() :
     cap = cv2.VideoCapture(0)
 
     while cap.isOpened():
@@ -23,5 +25,16 @@ if __name__ == '__main__' :
             break
         pass
     cv2.destroyAllWindows()
+    return
+
+
+import threading
+
+if __name__ == '__main__' : 
+    cap_thread = threading.Thread(target=cam)
+    cap_thread.daemon =True
+    cap_thread.start()
+
     app.run(host="0.0.0.0",port='8000')
     
+
